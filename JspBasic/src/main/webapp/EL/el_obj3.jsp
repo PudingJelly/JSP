@@ -20,6 +20,8 @@
 		# 비밀번호: <%=user.getUserPw() %>
 	</p>
 
+	<hr>
+	
 	<p>
 		# 이름: ${sessionScope.member.userName} <br>
 		# 아이디: ${member.userId} <br>
