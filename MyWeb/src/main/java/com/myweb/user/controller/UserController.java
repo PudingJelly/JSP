@@ -7,14 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.myweb.user.model.UserDAO;
 import com.myweb.user.model.UserVO;
+import com.myweb.user.service.IUserService;
+import com.myweb.user.service.JoinService;
 
 
 @WebServlet("*.user")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
+	// 서비스 인터페이스 타입의 변수를 선언해서
+	// 요청이 무엇이냐에 따라 하나의 변수로 여러 종류의 객체를 대입.
+    private IUserService sv;
+	
     public UserController() {
         super();
     }
@@ -35,14 +41,13 @@ public class UserController extends HttpServlet {
 		
 		case "join" :
 			System.out.println("회원 가입 요청이 들어옴!");
-			String id = request.getParameter("id");
-			
-			
-			
-			UserVO vo = new UserVO(
-						
-					);
-			
+			sv= new JoinService();
+			sv.execute(request, response);			
+			break;
+		
+		case "loginPage" :
+			System.out.println("로그인 페이지로 이동 요청!");
+			response.sendRedirect("user/user_login.jsp");
 			break;
 		}
 		
