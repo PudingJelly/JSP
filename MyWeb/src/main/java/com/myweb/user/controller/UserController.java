@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.myweb.user.model.UserVO;
+
 
 @WebServlet("*.user")
 public class UserController extends HttpServlet {
@@ -33,7 +35,15 @@ public class UserController extends HttpServlet {
 		
 		case "join" :
 			System.out.println("회원 가입 요청이 들어옴!");
+			String id = request.getParameter("id");
 			
+			
+			
+			UserVO vo = new UserVO(
+						
+					);
+			
+			break;
 		}
 		
 	}
