@@ -54,7 +54,7 @@
 		</c:forEach> <hr>
 	</c:forEach>
 	
-	<c:forEach var="dan" begin="2" end="9" step="2">
+	<c:forEach var="dan" begin="2" end="9">
 		<c:if test="${dan%2 == 0}">
 			<h4>구구단${dan}단</h4>
 			<c:forEach var="hang" begin="1" end="9">

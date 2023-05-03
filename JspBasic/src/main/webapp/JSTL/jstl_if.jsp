@@ -19,7 +19,7 @@
 		내장객체에 지정하는 데이터로 활용되기 때문에 EL이 가능합니다~!
 	 --%>
 	
-	<c:set var="age" value="${param.age}" />
+	<c:set var="age" value="${param.age}" /> <%--scope를 생략하면 기본값 page로 지정 --%>
 	
    	<p>
    		나이: ${age}세

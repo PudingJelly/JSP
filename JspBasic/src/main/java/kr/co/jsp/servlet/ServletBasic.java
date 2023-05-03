@@ -97,10 +97,27 @@ public class ServletBasic extends HttpServlet {
 		
 	}
 	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// http 통신 중 get 요청이 발생했을 때 자동으로 호출되는 메서드.
+		// 매개값으로 내장객체 request와 response가 전달되므로
+		// 객체의 메서드를 통해 파라미터값을 가져오건, 페이지 이동이 가능합니다.
+		System.out.println("doGet 메서드가 호출!");
+	}
 	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// http 통신 중 post 요청이 발생했을 때 자동으로 호출되는 메서드
+		// dGet과 마찬가지로 내장객체 requeset와 response를 매개값으로 받습니다.
+		System.out.println("doPost 메서드가 호출!");
+	}
 	
-	
-	
+	@Override
+	public void destroy() {
+		// 서블릿 객체가 소멸될 때 호출하는 메서드 (객체 소멸 시 1회 자동으로 호출)
+		// 대부분 객체 반납이나 소멸 등에 사용
+		System.out.println("destroy 메서드가 호출!");
+	}
 	
 	
 	
