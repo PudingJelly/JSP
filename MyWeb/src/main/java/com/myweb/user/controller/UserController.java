@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.myweb.user.model.UserDAO;
 import com.myweb.user.model.UserVO;
+import com.myweb.user.service.ChangePwService;
 import com.myweb.user.service.IUserService;
 import com.myweb.user.service.JoinService;
 import com.myweb.user.service.LoginService;
@@ -65,6 +66,15 @@ public class UserController extends HttpServlet {
 			System.out.println("마이페이지로 이동 요청!");
 			response.sendRedirect("user/user_mypage.jsp");
 			
+		case "pwPage" :
+			System.out.println("비밀번호 변경 페이지로 이동 요청!");
+			response.sendRedirect("user/user_change_pw.jsp");
+			
+		case "changePw" :
+			System.out.println("비밀번호 변경 요청!");
+			sv = new ChangePwService();
+			
+		
 		}
 		
 	}

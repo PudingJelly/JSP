@@ -43,7 +43,7 @@ public class LoginService implements IUserService {
 			PrintWriter out = response.getWriter();
 			if(result == -1) {
 				htmlCode = "<script>\r\n"
-                        + "                alert('존재하지 않는 아이디 입니다.');\r\n"
+                        + "                alert('존재하지 않는 회원 입니다.');\r\n"
                         + "                location.href='/MyWeb/loginPage.user';\r\n"
                         + "                </script>";
 				out.print(htmlCode);
