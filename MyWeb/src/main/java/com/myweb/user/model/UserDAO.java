@@ -7,7 +7,10 @@ import java.sql.SQLException;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.sql.DataSource;
+
+import org.apache.catalina.connector.Response;
 
 // DAO(Data Access Object)
 // 웹 프로그램에서 데이터베이서 CRUD 작업이 요구될 때마다
@@ -18,7 +21,7 @@ public class UserDAO {
 
 	// 커넥션 풀의 정보를 담을 변수를 선언
 	private DataSource ds;
-	
+
 	private UserDAO() {
 		// 커넥션 풀 정보 불러오기.
 		try {
@@ -28,9 +31,9 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static UserDAO dao = new UserDAO();
-	
+
 	public static UserDAO getInstance() {
 		if(dao == null) {
 			dao = new UserDAO();
@@ -38,7 +41,7 @@ public class UserDAO {
 		return dao;
 	}
 	//////////////////////////////////////////////////////////////
-	
+
 	// 회원 중복 여부 확인
 	public boolean confirmId(String id) {
 		String sql = "SELECT * FROM my_user WHERE user_id = ?";
@@ -47,9 +50,9 @@ public class UserDAO {
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) flag = true;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -66,12 +69,58 @@ public class UserDAO {
 			pstmt.setString(4, vo.getUserEmail());
 			pstmt.setString(5, vo.getUserAddress());
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}	
 	}
 	
 	
-	
+	// 회원 일치 여부 확인
+	public int userCheck(String id, String pw) {
+		int check = 0;
+		String sql = "SELECT * FROM my_user WHERE user_id = ?";
+		try(Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+		
+			if(rs.next()) {
+				String dbPw = rs.getString("user_pw");
+				if(dbPw.equals(pw)) check = 1;
+				else check = 0;				
+			} else check = -1;				
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return check;
+	}
+
+	public UserVO getUserInfo(String id) {
+		UserVO user = null;
+		String sql = "SELECT * FROM my_user WHERE user_id= '" + id + "'";
+		try(Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()) {
+				user = new UserVO(
+						rs.getString("user_id"),
+						rs.getString("user_pw"),
+						rs.getString("user_name"),
+						rs.getString("user_email"),
+						rs.getString("user_address")
+						);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+
+
+
 }

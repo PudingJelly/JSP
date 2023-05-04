@@ -11,6 +11,7 @@ import com.myweb.user.model.UserDAO;
 import com.myweb.user.model.UserVO;
 import com.myweb.user.service.IUserService;
 import com.myweb.user.service.JoinService;
+import com.myweb.user.service.LoginService;
 
 
 @WebServlet("*.user")
@@ -28,6 +29,10 @@ public class UserController extends HttpServlet {
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		if(request.getMethod().equals("POST")) {
+			request.setCharacterEncoding("UTF-8");
+		}
+		
 		String uri = request.getRequestURI();
 		uri = uri.substring(request.getContextPath().length() + 1, uri.lastIndexOf("."));
 		
@@ -41,7 +46,7 @@ public class UserController extends HttpServlet {
 		
 		case "join" :
 			System.out.println("회원 가입 요청이 들어옴!");
-			sv= new JoinService();
+			sv = new JoinService();
 			sv.execute(request, response);			
 			break;
 		
@@ -49,6 +54,17 @@ public class UserController extends HttpServlet {
 			System.out.println("로그인 페이지로 이동 요청!");
 			response.sendRedirect("user/user_login.jsp");
 			break;
+			
+		case "login" :
+			System.out.println("로그인 요청이 들어옴!");
+			sv = new LoginService();
+			sv.execute(request, response);
+			break;
+			
+		case "myPage" :
+			System.out.println("마이페이지로 이동 요청!");
+			response.sendRedirect("user/user_mypage.jsp");
+			
 		}
 		
 	}
