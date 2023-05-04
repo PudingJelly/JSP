@@ -121,12 +121,13 @@ public class UserDAO {
 		return user;
 	}
 
-	public void changePassword(String pw) {
-		String sql = "UPDATE my_user SET user_pw = ?";
+	public void changePassword(String id, String pw) {
+		String sql = "UPDATE my_user SET user_pw = ? WHERE user_id = ?";
 		try(Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, pw);
-			int rs = pstmt.executeUpdate();
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

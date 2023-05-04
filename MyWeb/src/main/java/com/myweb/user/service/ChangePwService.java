@@ -25,38 +25,42 @@ public class ChangePwService implements IUserService {
 	    4. "비밀번호가 정상적으로 변경되었습니다." 경고창 출력 후 mypage 이동.
 	    5. 현재 비밀번호가 불일치 -> "현재 비밀번호가 다릅니다." 경고창 출력 후 뒤로가기.
 	    */
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");		
-		
 		UserDAO dao = UserDAO.getInstance();
+		HttpSession session = request.getSession();
+		UserVO vo = (UserVO) session.getAttribute("user");
+		
+		String id = vo.getUserId();
+		String oldPw = request.getParameter("old_pw");
+		String newPw = request.getParameter("new_pw");
+				
 		response.setContentType("text/html; charset=UTF-8");
 		String htmlCode;
 		
-		int result = dao.userCheck(id, pw);
+		int result = dao.userCheck(id, oldPw);
 				
 		try {
 			PrintWriter out = response.getWriter();
-			if(result == -1) {
+			if(result == 1) {
+				dao.changePassword(id, newPw);
+//				System.out.println("ddddd");
 				htmlCode = "<script>\r\n"
-						+ "                alert('존재하지 않는 아이디 입니다.');\r\n"
-						+ "                location.href='/MyWeb/pwPage.user';\r\n"
-						+ "                </script>";
-				out.print(htmlCode);
-				out.flush();
-			} else if (result == 0) {
-				htmlCode = "<script>\r\n"
-                        + "                alert('비밀번호가 일치하지 않습니다');\r\n"
-                        + "                history.back();\r\n"
+                        + "                alert('비밀번호가 변경되었습니다');\r\n"
+                        + "                location.href='/MyWeb/myPage.user';\r\n"
                         + "                </script>";
 				out.print(htmlCode);
 				out.flush();
 				out.close();
 			} else {
-				UserVO vo = dao.getUserInfo(id);
-				HttpSession session = request.getSession();
-				session.setAttribute("user", vo);
-				
+//				System.out.println("땡");
+				htmlCode = "<script>\r\n"
+                        + "                alert('비밀번호가 틀렸습니다');\r\n"
+                        + "                history.back();\r\n"
+                        + "                </script>";
+				out.print(htmlCode);
+				out.flush();
+				out.close();
 			}
+			 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

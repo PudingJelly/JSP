@@ -65,15 +65,18 @@ public class UserController extends HttpServlet {
 		case "myPage" :
 			System.out.println("마이페이지로 이동 요청!");
 			response.sendRedirect("user/user_mypage.jsp");
+			break;
 			
 		case "pwPage" :
 			System.out.println("비밀번호 변경 페이지로 이동 요청!");
 			response.sendRedirect("user/user_change_pw.jsp");
+			break;
 			
 		case "changePw" :
 			System.out.println("비밀번호 변경 요청!");
 			sv = new ChangePwService();
-			
+			sv.execute(request, response);
+			break;
 		
 		}
 		
