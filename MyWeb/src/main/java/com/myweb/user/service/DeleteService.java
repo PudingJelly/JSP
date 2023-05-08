@@ -16,6 +16,7 @@ public class DeleteService implements IUserService {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 				
 		String id = ((UserVO)request.getSession().getAttribute("user")).getUserId();
+		
 //		HttpSession session = request.getSession();
 //		UserVO vo = (UserVO) session.getAttribute("user");
 //		System.out.println(vo);

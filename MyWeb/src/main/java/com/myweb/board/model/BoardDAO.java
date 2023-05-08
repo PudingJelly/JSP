@@ -31,33 +31,30 @@ public class BoardDAO implements IBoardDAO {
 		return dao;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
+	
 	@Override
 	public void regist(String writer, String title, String content) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public List<BoardVO> listBoard() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public BoardVO contentBoard(int bId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void updateBoard(String title, String content, int bId) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void deleteBoard(int bId) {
-		// TODO Auto-generated method stub
 
 	}
 
