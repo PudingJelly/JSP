@@ -67,7 +67,7 @@
                         <a href="">Member</a>
                     </li>
                     <li>
-                        <a href="">BOARD</a>
+                        <a href="/MyWeb/list.board">BOARD</a>
                     </li>                    
                     
                     <c:choose>

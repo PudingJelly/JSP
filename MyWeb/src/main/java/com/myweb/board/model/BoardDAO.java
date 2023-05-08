@@ -58,7 +58,7 @@ public class BoardDAO implements IBoardDAO {
 	@Override
 	public List<BoardVO> listBoard() {
 		List<BoardVO> articles = new ArrayList<>();
-		String sql = "SELECT * FROM my_board";
+		String sql = "SELECT * FROM my_board ORDER BY board_id DESC";
 		try(Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {

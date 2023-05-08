@@ -1,6 +1,8 @@
 package com.myweb.board.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,8 +62,19 @@ public class BoardController extends HttpServlet {
 			System.out.println("글 목록 요청이 들어옴!");
 			sv = new GetListService();
 			sv.execute(request, response);
+			/*
+			 여기서 sendRedirect를 하면 안되는 이유
+			 request 객체에 list를 담아서 전달하려 하는데, sendRedirect를 사용하면
+			 응답이 나감과 동시에 request 객체가 소멸해 버립니다.
+			 여기서는 forward 방식을 사용해서 request를 원하는 jsp 파일로 전달해서
+			 그쪽에서 응답이 나갈 수 있도록 처리해야 합니다.
+			 */
 			
+			// request 객체를 다음 화면까지 운반하기 위한 forward 기능을 제공하는 객체
+			// -> RequestDispatcher
 			
+			RequestDispatcher dp = request.getRequestDispatcher("board/board_list.jsp");
+			dp.forward(request, response);
 			break;
 		}
 	}
