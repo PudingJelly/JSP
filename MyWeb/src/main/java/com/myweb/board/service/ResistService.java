@@ -15,9 +15,7 @@ public class ResistService implements IBoardService {
 		String content = request.getParameter("bContent");
 		
 		BoardDAO.getInstance().regist(writer, title, content);
-		
-		
-		
+			
 		
 		
 	}
