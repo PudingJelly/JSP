@@ -58,6 +58,7 @@ public class LoginService implements IUserService {
 				out.close();
 			} else {
 				UserVO vo = dao.getUserInfo(id);
+				System.out.println(vo);
 				HttpSession session = request.getSession();
 				session.setAttribute("user", vo);
 				response.sendRedirect("/MyWeb/myPage.user");
