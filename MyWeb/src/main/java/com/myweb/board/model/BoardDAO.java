@@ -81,17 +81,83 @@ public class BoardDAO implements IBoardDAO {
 
 	@Override
 	public BoardVO contentBoard(int bId) {
-		return null;
+		BoardVO vo = null;
+		String sql = "SELECT * FROM my_board WHERE board_id=" + bId;
+		try(Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()) {						
+			if(rs.next()) {
+				vo = new BoardVO(
+							rs.getInt("board_id"),
+							rs.getString("writer"),
+							rs.getString("title"),
+							rs.getString("content"),
+							rs.getTimestamp("reg_date").toLocalDateTime(),
+							rs.getInt("hit")
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vo;
 	}
 
 	@Override
 	public void updateBoard(String title, String content, int bId) {
-
+		String sql = "UPDATE my_board "
+				+ "SET title = ?, content = ? "
+				+ "WHERE board_id = ?";
+		try(Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, bId);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	public void deleteBoard(int bId) {
+		String sql = "DELETE my_board WHERE board_id=?";
+		try(Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, bId);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	@Override
+	public List<BoardVO> searchBoard(String keyword, String category) {
+		List<BoardVO> searchList = new ArrayList<>();
+		String sql = "SELECT * FROM my_board "
+				+ "WHERE " + category + " LIKE ?";
+		try(Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(2, category);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardVO vo = new BoardVO(
+							rs.getInt("board_id"),
+							rs.getString("writer"),
+							rs.getString("title"),
+							rs.getString("content"),
+							rs.getTimestamp("reg_date").toLocalDateTime(),
+							rs.getInt("hit")							
+						);
+				searchList.add(vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return searchList;
 	}
 
 }
