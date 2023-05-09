@@ -38,7 +38,7 @@ public class JoinService implements IUserService {
 							request.getParameter("pw"),
 							request.getParameter("name"),
 							request.getParameter("email"),
-							request.getParameter("adress")
+							request.getParameter("address")
 						);
 				
 				dao.insertUser(vo);
