@@ -71,7 +71,8 @@
                         <div class="row">
                             <div class="col-md-offset-1 col-md-5">
                                 <p class="last-update">
-                                   ${content.regDate}
+                                   <fmt:parseDate value="${content.regDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
+                                   <fmt:formatDate value="${parsedDateTime}" pattern="yy-MM-dd HH:mm"/>
                                 </p>
                             </div>
                             <div class="btn-group col-md-offset-1 col-md-5">

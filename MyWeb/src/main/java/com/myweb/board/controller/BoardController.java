@@ -124,8 +124,10 @@ public class BoardController extends HttpServlet {
 			sv = new SearchService();
 			sv.execute(request, response);
 			
-			dp = request.getRequestDispatcher("board/board_list.jsp");
-			dp.forward(request, response);
+			if(request.getAttribute("boardList") != null) {
+				dp = request.getRequestDispatcher("board/board_list.jsp");
+				dp.forward(request, response);		
+			}
 			break;
 		}
 	}
