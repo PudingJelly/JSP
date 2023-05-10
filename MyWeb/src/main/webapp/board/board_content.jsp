@@ -76,7 +76,7 @@
                                 </p>
                             </div>
                             <div class="btn-group col-md-offset-1 col-md-5">
-                                <a class="btn btn-info" href="/MyWeb/list.board">목록 보기</a>
+                                <a class="btn btn-info" href="/MyWeb/list.board?page=${param.page}&cpp=${param.cpp}">목록 보기</a>
                                 <c:choose>
                                 	<c:when test="${user.userId == content.writer}">       
                                         <a class="btn btn-primary" href="/MyWeb/modify.board?bId=${content.boardId}">수정하기</a>

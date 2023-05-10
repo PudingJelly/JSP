@@ -13,7 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.myweb.board.controller.BoardController;
-import com.myweb.commons.PageVO;
+import com.myweb.board.commons.PageVO;
 
 
 public class BoardDAO implements IBoardDAO {

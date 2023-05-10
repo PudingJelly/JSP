@@ -1,4 +1,4 @@
-package com.myweb.commons;
+package com.myweb.board.commons;
 
 // 사용자가 선택하는 페이지의 전반적인 정보를 담아놓을 클래스
 public class PageVO {

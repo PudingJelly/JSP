@@ -2,7 +2,7 @@ package com.myweb.board.model;
 
 import java.util.List;
 
-import com.myweb.commons.PageVO;
+import com.myweb.board.commons.PageVO;
 
 public interface IBoardDAO {
 	// 내가 SQL을 통해서 무엇을 설정할지를 먼저 생각하여 변수를 받아야 되는지 확인하기!!!

@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.myweb.board.model.BoardDAO;
 import com.myweb.board.model.BoardVO;
-import com.myweb.commons.PageVO;
+import com.myweb.board.commons.PageCreator;
+import com.myweb.board.commons.PageVO;
 
 public class GetListService implements IBoardService {
 
@@ -29,8 +30,12 @@ public class GetListService implements IBoardService {
 		
 		List<BoardVO> boardList = dao.listBoard(paging);
 		
+		// 페이지 버튼 배치를 위해 객체를 생성
+		PageCreator pc = new PageCreator();
 		
-		
+		// 페이징 버튼 알고리즘을 위해 PageVO() 객체와 총 게시물 수를 setter로 전달
+		pc.setPaging(paging);
+		pc.setArticleTotalCount(dao.countArticles());		
 		
 		
 		// 왜 session을 사용하지 않고 request를 사용하는가?
@@ -41,7 +46,9 @@ public class GetListService implements IBoardService {
 		// 화면으로 전달하고자 합니다.
 		request.setAttribute("boardList", boardList);
 		
-		
+		// jsp 파일에서 버튼 배치를 위해, 모든 정보가 완성된 PageCreator 객체를
+		// request에 담아서 forwarding 하겠다
+		request.setAttribute("pc", pc);
 		
 		
 	}
